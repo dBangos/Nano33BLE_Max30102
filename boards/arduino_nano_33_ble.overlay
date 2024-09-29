@@ -1,0 +1,35 @@
+&adc {
+	status = "okay";
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	channel@1 {/*This corresponds to the A7 pin on the arduino */
+		reg = <1>;
+		zephyr,gain = "ADC_GAIN_1";
+		zephyr,reference = "ADC_REF_INTERNAL";
+		zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+		zephyr,resolution = <10>;
+		zephyr,input-positive = < NRF_SAADC_AIN1>;
+	};
+};
+
+&i2c0{
+	max30102: max30102@57{
+	compatible = "i2c-device";
+	status = "okay";
+	reg = <0x57>;
+	};
+};
+&i2c1 {
+	lsm6ds0@6b{
+		compatible = "st,lsm6ds0";
+		reg = <0x6b>;
+		status = "okay";
+	};
+	lism3dl@1e{/*Even though this is not being used it needs to be here so the lsm6ds0 gets recognized*/
+		compatible = "st,lis3mdl-magn";
+		reg = <0x1e>;
+		status = "okay";
+	};
+};
+
